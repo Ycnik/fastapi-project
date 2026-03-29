@@ -1,0 +1,88 @@
+info:
+  name: Suche nachname, email, ... vom soldaten mit ID 20
+  type: graphql
+  seq: 1
+
+graphql:
+  method: POST
+  url: "{{graphqlUrl}}"
+  headers:
+    - name: ""
+      value: ""
+      disabled: true
+  body:
+    query: |-
+      query ($soldatId: ID! = "20") {
+        soldat(soldatId: $soldatId) {
+          id
+          version
+          nachname
+          email
+          kategorie
+          hasNewsletter
+          geburtsdatum
+          homepage
+          geschlecht
+          familienstand
+          adresse {
+            plz
+            ort
+          }
+          fachaerzte
+          username
+        }
+      }
+    variables: |-
+      {
+        "soldatId": "20"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: eq
+      value: application/json
+    - expression: res.body.data.soldat
+      operator: isJson
+    - expression: res.body.data.soldat.version
+      operator: gte
+      value: "0"
+    - expression: res.body.data.soldat.nachname
+      operator: isString
+    - expression: res.body.data.soldat.nachname
+      operator: isNotEmpty
+    - expression: res.body.data.soldat.email
+      operator: isString
+    - expression: res.body.data.soldat.email
+      operator: isNotEmpty
+    - expression: res.body.data.soldat.kategorie
+      operator: gt
+      value: "0"
+    - expression: res.body.data.soldat.hasNewsletter
+      operator: isBoolean
+    - expression: res.body.data.soldat.geburtsdatum
+      operator: isString
+    - expression: res.body.data.soldat.homepage
+      operator: isString
+    - expression: res.body.data.soldat.geschlecht
+      operator: isString
+    - expression: res.body.data.soldat.familienstand
+      operator: isString
+    - expression: res.body.data.soldat.adresse
+      operator: isJson
+    - expression: res.body.data.soldat.fachaerzte
+      operator: isArray
+    - expression: res.body.data.soldat.username
+      operator: isString
+    - expression: res.body.data.soldat.username
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

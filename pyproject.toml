@@ -1,0 +1,26 @@
+[project]
+name = "soldat"
+version = "2026.4.1"
+description = "Erstes eigenes fastapi projekt"
+readme = "README.md"
+authors = [
+    { name = "Tareq Daoud-Ghadieh", email = "data1014@h-ka.de"},
+    { name = "Yanik Bachmann", email = "baya1011@h-ka.de"}
+]
+maintainers = [
+    { name = "Tareq Daoud-Ghadieh", email = "data1014@h-ka.de" },
+    { name = "Yanik Bachmann", email = "baya1011@h-ka.de"}
+]
+
+dependencies = [    
+    "fastapi>=0.135.1",
+    "uvicorn>=0.41.0"
+]
+
+requires-python = ">=3.14.3"
+
+[project.scripts]
+soldat = "soldat:main"
+
+[tool.uv]
+package = true
