@@ -16,7 +16,7 @@ dependencies = [
     "fastapi>=0.135.1",
     "uvicorn>=0.41.0",
     "SQLAlchemy>=2.0.48",
-    "strawberry-graphql>=0.311.1"
+    "loguru>=0.7.3"
 ]
 
 requires-python = ">=3.14.3"

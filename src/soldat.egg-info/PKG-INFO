@@ -9,6 +9,6 @@ Description-Content-Type: text/markdown
 Requires-Dist: fastapi>=0.135.1
 Requires-Dist: uvicorn>=0.41.0
 Requires-Dist: SQLAlchemy>=2.0.48
-Requires-Dist: strawberry-graphql>=0.311.1
+Requires-Dist: loguru>=0.7.3
 
 # fastapi-project
