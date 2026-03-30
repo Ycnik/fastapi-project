@@ -1,5 +1,5 @@
+README.md
 pyproject.toml
-src/pirat/__init__.py
 src/soldat/__init__.py
 src/soldat/__main__.py
 src/soldat/asgi_server.py
@@ -26,3 +26,12 @@ src/soldat/config/dev/db_populate.py
 src/soldat/config/dev/db_populate_router.py
 src/soldat/config/dev/keycloak_populate.py
 src/soldat/config/dev/keycloak_populate_router.py
+src/soldat/entity/__init__.py
+src/soldat/entity/ausrüstung.py
+src/soldat/entity/base.py
+src/soldat/entity/geschlecht.py
+src/soldat/entity/rang.py
+src/soldat/entity/schweregrad.py
+src/soldat/entity/soldat.py
+src/soldat/entity/verletzung.py
+src/soldat/entity/waffe.py

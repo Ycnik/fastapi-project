@@ -1,4 +1,4 @@
-"""Entity-Klasse für die Adresse."""
+"""Entity-Klasse für die Ausrüstung."""
 
 from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -29,7 +29,7 @@ class Ausrüstung(Base):
     soldat: Mapped[Soldat] = relationship(  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable]
         back_populates="ausrüstung",
     )
-    """Das zugehörige transiente Patient-Objekt."""
+    """Das zugehörige transiente Soldaten-Objekt."""
 
     # __repr__ fuer Entwickler/innen, __str__ fuer User
     def __repr__(self) -> str:
