@@ -4,6 +4,13 @@ from ssl import PROTOCOL_TLS_SERVER
 
 import uvicorn
 
+from soldat.config import (
+    host_binding,
+    port,
+    tls_certfile,
+    tls_keyfile,
+)
+
 from soldat.fastapi_app import app  # noqa: F401
 
 __all__ = ["run"]
@@ -22,6 +29,10 @@ def run() -> None:
         loop="asyncio",
         http="h11",
         interface="asgi3",
+        host=host_binding,
+        port=port,
+        ssl_keyfile=tls_keyfile,
+        ssl_certfile=tls_certfile,
         # "OpenSSL has deprecated all version specific protocols"
         # https://docs.python.org/3/library/ssl.html#protocol-versions
         ssl_version=PROTOCOL_TLS_SERVER,  # DevSkim: ignore DS440070

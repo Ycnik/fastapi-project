@@ -1,18 +1,3 @@
-# Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 """Konfiguration aus der TOML-Datei einlesen."""
 
 from importlib.resources import files
@@ -26,7 +11,7 @@ from loguru import logger
 __all__ = ["app_config", "resources_path"]
 
 
-resources_path: Final[str] = "patient.config.resources"
+resources_path: Final[str] = "soldat.config.resources"
 
 _resources_traversable: Final[Traversable] = files(resources_path)
 _config_file: Final[Traversable] = _resources_traversable / "app.toml"
