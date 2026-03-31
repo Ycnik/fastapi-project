@@ -1,4 +1,4 @@
-"""Repository fuer persistente Patientendaten."""
+"""Repository fuer persistente Soldatendaten."""
 
 from typing import Final
 
@@ -12,7 +12,7 @@ __all__ = ["SoldatRepository"]
 
 class SoldatRepository:
 
-    def find_by_id(self, soldaten_id: int | None, session: Session) -> Soldat | None:
+    def find_by_id(self, soldat_id: int | None, session: Session) -> Soldat | None:
             """Suche mit der Soldaten-ID.
 
             :param soldat_id: ID des gesuchten Soldaten
@@ -20,15 +20,15 @@ class SoldatRepository:
             :return: Der gefundene Soldat oder None
             :rtype: Soldat | None
             """
-            logger.debug("soldat_id={}", soldaten_id)
+            logger.debug("soldat_id={}", soldat_id)
 
-            if soldaten_id is None:
+            if soldat_id is None:
                 return None
 
             statement: Final = (
                 select(Soldat)
                 .options(joinedload(Soldat.ausrüstung))
-                .where(Soldat.id == soldaten_id)
+                .where(Soldat.id == soldat_id)
             )
             soldat: Final = session.scalar(statement)
 

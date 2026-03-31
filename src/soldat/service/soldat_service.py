@@ -1,16 +1,17 @@
 """Geschäftslogik zum Lesen von Soldatenendaten."""
 from typing import Final
-from soldat.repository import Session
+from soldat.repository import Session, SoldatRepository
 from loguru import logger
 from soldat.service.exceptions import NotFoundError
 from soldat.service.soldat_dto import SoldatDTO
 
+__all__ = ["SoldatService"]
 class SoldatService:
     """Service-Klasse mit Geschäftslogik für Soldat."""
 
-    def __init__(self, SoldatenRepository) -> None:
+    def __init__(self, repo: SoldatRepository) -> None:
         """Konstruktor mit abhängigem SoldatenRepository."""
-        self.repo = SoldatenRepository
+        self.repo: SoldatRepository = repo
 
     def find_by_id(self, soldat_id: int) -> SoldatDTO:
             """Suche mit der Soldaten-ID.
