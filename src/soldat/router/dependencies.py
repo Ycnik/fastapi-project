@@ -1,4 +1,5 @@
 """Factory-Funktionen für Dependency Injection."""
+
 from typing import Annotated
 
 from fastapi import Depends
@@ -21,4 +22,3 @@ def get_service(
 ) -> SoldatService:
     """Factory-Funktion für SoldatService."""
     return SoldatService(repo=repo)
-

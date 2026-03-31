@@ -49,11 +49,11 @@ class Soldat(Base):
     )
     """Die in einer 1:1-Beziehung referenzierte Ausrütung."""
 
-    verletzung: Mapped[list[Verletzung]] = relationship(
+    verletzungen: Mapped[list[Verletzung]] = relationship(
         back_populates="soldat",
         cascade="save-update, delete",
     )
-    """Die in einer 1:N-Beziehung referenzierten Verletzung."""
+    """Die in einer 1:N-Beziehung referenzierten Verletzungen."""
 
     version: Mapped[int] = mapped_column(nullable=False, default=0)
     """Die Versionsnummer für optimistische Synchronisation."""
@@ -104,7 +104,7 @@ class Soldat(Base):
             f"Soldat(id={self.id}, version={self.version}, "
             + f"vorname={self.vorname}, nachname={self.nachname}, "
             + f"rang={self.rang}, geburtsdatum={self.geburtsdatum}, "
-            + f"geschlecht={self.geschlecht}, ausrüstung={self.ausruestung}, "
-            + f"verletzung={self.verletzung}, version={self.version}, "
+            + f"geschlecht={self.geschlecht}, ausruestung={self.ausruestung}, "
+            + f"verletzungen={self.verletzungen}, version={self.version}, "
             + f"erzeugt={self.erzeugt}, aktualisiert={self.aktualisiert}) "
         )

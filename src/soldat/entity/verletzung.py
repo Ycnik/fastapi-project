@@ -1,4 +1,4 @@
-"""Entity-Klasse für Rechnung."""
+"""Entity-Klasse für Verletzungen."""
 
 from datetime import date
 
@@ -36,7 +36,7 @@ class Verletzung(Base):
     """ID des zugehörigen Soldaten als Fremdschlüssel in der DB-Tabelle."""
 
     soldat: Mapped[Soldat] = relationship(  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable ]
-        back_populates="verletzung",
+        back_populates="verletzungen",
     )
     """Das zugehörige transiente Soldaten-Objekt."""
 

@@ -1,4 +1,3 @@
-
 """DB-URL erstellen."""
 
 from importlib.resources import files

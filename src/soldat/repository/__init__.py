@@ -1,10 +1,10 @@
 """Modul für den DB-Zugriff."""
 
-from soldat.repository.soldat_repository import SoldatRepository
 from soldat.repository.session_factory import Session, engine
+from soldat.repository.soldat_repository import SoldatRepository
 
 __all__ = [
-    "SoldatRepository",
     "Session",
+    "SoldatRepository",
     "engine",
 ]

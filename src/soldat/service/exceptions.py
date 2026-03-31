@@ -4,6 +4,7 @@ __all__ = [
     "NotFoundError",
 ]
 
+
 class NotFoundError(Exception):
     """Exception, falls kein Soldat gefunden wurde."""
 
