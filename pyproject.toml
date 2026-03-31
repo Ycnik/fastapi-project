@@ -26,3 +26,62 @@ soldat = "soldat:main"
 
 [tool.uv]
 package = true
+
+[dependency-groups]
+lint = [
+        "ruff>=0.15.6",
+]
+
+[tool.ruff]
+preview = true
+
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules
+select = [
+    "FAST",   # FastAPI
+    "B",      # flake8-bugbear https://github.com/PyCQA/flake8-bugbear
+    "ASYNC",  # flake8-async https://github.com/python-trio/flake8-async
+    "S",      # flake8-bandit https://github.com/tylerwince/flake8-bandit Bandit>=1.7.1
+    "BLE",    # flake8-blind-except https://github.com/elijahandrews/flake8-blind-except
+    "FBT",    # flake8-boolean-trap https://github.com/pwoolvett/flake8_boolean_trap
+    "A",      # flake8-builtins https://github.com/gforcada/flake8-builtins
+    "COM",    # flake8-commas https://github.com/PyCQA/flake8-commas
+    "C4",     # flake8-comprehensions https://github.com/adamchainz/flake8-comprehensions
+    "ISC001", # flake8-implicit-str-concat https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat
+    "PIE",    # flake8-pie https://github.com/sbdchd/flake8-pie
+    "RSE",    # flake8-raise https://github.com/jdufresne/flake8-raise
+    "RET",    # flake8-return https://github.com/afonasev/flake8-return
+    "SLF",    # flake8-self
+    "SIM",    # flake8-simplify https://github.com/MartinThoma/flake8-simplify
+    "TID",    # flake8-tidy-imports https://github.com/adamchainz/flake8-tidy-imports
+    "TC",     # flake8-type-checking https://github.com/snok/flake8-type-checking
+    "ARG",    # flake8-unused-arguments https://github.com/nhoad/flake8-unused-arguments
+    "PTH",    # flake8-use-pathlib https://gitlab.com/RoPP/flake8-use-pathlib
+    "I",      # isort https://github.com/PyCQA/isort
+    "N",      # pep8-naming https://github.com/PyCQA/pep8-naming
+    "PERF",   # Perflint https://github.com/tonybaloney/perflint
+    "E",      # pycodestyle https://github.com/pycqa/pycodestyle
+    "W",      # pycodestyle (warning)
+    "D",      # pydoclint https://github.com/jsh9/pydoclint
+    "F",      # Pyflakes https://github.com/PyCQA/pyflakes
+    "PL",     # Pylint https://pypi.org/project/pylint
+    "UP",     # pyupgrade https://github.com/asottile/pyupgrade
+    "FURB",   # refurb https://github.com/dosisod/refurb
+    "RUF",    # Ruff-specific rules https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
+]
+ignore = [
+    # D212 https://docs.astral.sh/ruff/rules/multi-line-summary-first-line als Alternative zu D203 und D213
+    "D203",   # https://docs.astral.sh/ruff/rules/incorrect-blank-line-before-class
+    "D213",   # https://docs.astral.sh/ruff/rules/multi-line-summary-second-line
+    "RUF012", # https://docs.astral.sh/ruff/rules/mutable-class-default
+    # https://github.com/astral-sh/ruff/issues/9216
+    "COM812",  # https://docs.astral.sh/ruff/rules/missing-trailing-comma
+    "PLR6301", # https://docs.astral.sh/ruff/rules/no-self-use
+    "TC001",   # https://docs.astral.sh/ruff/rules/typing-only-first-party-import
+    "TC002",   # https://docs.astral.sh/ruff/rules/typing-only-third-party-import
+    "TC003",   # https://docs.astral.sh/ruff/rules/typing-only-standard-library-import
+    # "S501",    # https://docs.astral.sh/ruff/rules/request-with-no-cert-validation
+]
+
+[tool.ruff.lint.isort]
+case-sensitive = true

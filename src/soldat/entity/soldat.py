@@ -1,17 +1,17 @@
 """Entity-Klasse für Soldatendaten."""
 
-
 from datetime import date, datetime
 from typing import Any, Self
 
 from sqlalchemy import Identity, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from soldat.entity.ausruestung import Ausruestung
 from soldat.entity.base import Base
 from soldat.entity.geschlecht import Geschlecht
 from soldat.entity.rang import Rang
 from soldat.entity.verletzung import Verletzung
-from soldat.entity.ausrüstung import Ausrüstung
+
 
 class Soldat(Base):
     """Entity-Klasse für Soldatendaten."""
@@ -33,9 +33,8 @@ class Soldat(Base):
     geschlecht: Mapped[Geschlecht]
     """Das  Geschlecht."""
 
-    #titan: Mapped[Titan | None]
-    #"""Angabe, des ggf. Titan eines Soldaten"""
-
+    # titan: Mapped[Titan | None]
+    # """Angabe, des ggf. Titan eines Soldaten"""
 
     id: Mapped[int | None] = mapped_column(
         Identity(start=1000),
@@ -43,8 +42,7 @@ class Soldat(Base):
     )
     """Die generierte ID gemäß der zugehörigen IDENTITY-Spalte."""
 
-
-    ausrüstung: Mapped[Ausrüstung] = relationship(
+    ausruestung: Mapped[Ausruestung] = relationship(
         back_populates="soldat",
         innerjoin=True,
         cascade="save-update, delete",
@@ -78,7 +76,8 @@ class Soldat(Base):
     def set(self, soldat: Self) -> None:
         """Primitive Attributwerte überschreiben, z.B. vor DB-Update.
 
-        :param soldat: Soldat-Objekt mit den aktuellen Daten"""
+        :param soldat: Soldat-Objekt mit den aktuellen Daten
+        """
         self.vorname = soldat.vorname
         self.nachname = soldat.nachname
         self.rang = soldat.rang
@@ -105,7 +104,7 @@ class Soldat(Base):
             f"Soldat(id={self.id}, version={self.version}, "
             + f"vorname={self.vorname}, nachname={self.nachname}, "
             + f"rang={self.rang}, geburtsdatum={self.geburtsdatum}, "
-            + f"geschlecht={self.geschlecht}, ausrüstung={self.ausrüstung}, "
+            + f"geschlecht={self.geschlecht}, ausrüstung={self.ausruestung}, "
             + f"verletzung={self.verletzung}, version={self.version}, "
             + f"erzeugt={self.erzeugt}, aktualisiert={self.aktualisiert}) "
-            )
+        )

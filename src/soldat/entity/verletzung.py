@@ -2,7 +2,6 @@
 
 from datetime import date
 
-
 from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -45,8 +44,8 @@ class Verletzung(Base):
     def __repr__(self) -> str:
         """Ausgabe der Verletzung als String ohne die Soldatendaten."""
         return (
-         f"Verletzung(id={self.id}, verletzunsbezeichnung={self.verletzungsbezeichnung}, "
-        +f"schweregrad={self.schweregrad}, behandelt={self.behandelt}," 
-        +f"verletzungsdatum={self.verletzungsdatum}"
+            f"Verletzung(id={self.id}, "
+            + f" verletzunsbezeichnung={self.verletzungsbezeichnung}, "
+            + f"schweregrad={self.schweregrad}, behandelt={self.behandelt},"
+            + f"verletzungsdatum={self.verletzungsdatum}"
         )
-
