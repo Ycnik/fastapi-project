@@ -5,3 +5,43 @@
 [tls]
 # key = "key.pem"
 # certificate = "certificate.crt"
+
+[db]
+# dialect = "postgresql"
+# username = "patient"
+# name = "patient"
+password = "p"
+password-admin = "p"
+host = "localhost"
+# locust: auskommentieren
+log-statements = true
+
+[mail]
+# enabled = false
+host = "localhost"
+# host = "mail"
+port = 1025
+# timeout = 1.0
+
+[excel]
+enabled = true
+
+[keycloak]
+# schema = "https"
+host = "localhost"
+# host = "keycloak"
+port = 8843
+# realm = "python"
+# client-id = "python-client"
+client-secret = "Ydn2Jm5DfNB4aiVgP6COvBRnJywgWN6R"
+# admin = "admin"
+admin-password = "p"
+csv = "extras/compose/postgres/init/soldat/csv/patient.csv"
+
+[graphql]
+# locust: auskommentieren
+graphiql-enabled = true
+
+[dev]
+db-populate = true
+keycloak-populate = true
