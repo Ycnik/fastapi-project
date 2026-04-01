@@ -1,3 +1,5 @@
+"""Paket fuer die Soldat-Anwendung."""
+
 from soldat.asgi_server import run
 from soldat.fastapi_app import app
 

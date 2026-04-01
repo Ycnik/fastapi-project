@@ -1,7 +1,6 @@
-"""Entity-Klasse für Rechnung."""
+"""Entity-Klasse für Verletzungen."""
 
 from datetime import date
-
 
 from sqlalchemy import ForeignKey, Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -37,7 +36,7 @@ class Verletzung(Base):
     """ID des zugehörigen Soldaten als Fremdschlüssel in der DB-Tabelle."""
 
     soldat: Mapped[Soldat] = relationship(  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable ]
-        back_populates="verletzung",
+        back_populates="verletzungen",
     )
     """Das zugehörige transiente Soldaten-Objekt."""
 
@@ -45,8 +44,8 @@ class Verletzung(Base):
     def __repr__(self) -> str:
         """Ausgabe der Verletzung als String ohne die Soldatendaten."""
         return (
-         f"Verletzung(id={self.id}, verletzunsbezeichnung={self.verletzungsbezeichnung}, "
-        +f"schweregrad={self.schweregrad}, behandelt={self.behandelt}," 
-        +f"verletzungsdatum={self.verletzungsdatum}"
+            f"Verletzung(id={self.id}, "
+            + f" verletzunsbezeichnung={self.verletzungsbezeichnung}, "
+            + f"schweregrad={self.schweregrad}, behandelt={self.behandelt},"
+            + f"verletzungsdatum={self.verletzungsdatum}"
         )
-

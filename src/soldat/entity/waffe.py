@@ -2,6 +2,7 @@
 
 from enum import StrEnum
 
+
 # StrEnum ab Python 3.11 (2022), abgeleitet von str
 # zusaetzlich als enum fuer das GraphQL-Schema
 class Waffe(StrEnum):
@@ -12,4 +13,3 @@ class Waffe(StrEnum):
     Schrotflinte = "Schrotflinte"
 
     Klinge = "Klingen"
-

@@ -10,7 +10,6 @@ from soldat.config import (
     tls_certfile,
     tls_keyfile,
 )
-
 from soldat.fastapi_app import app  # noqa: F401
 
 __all__ = ["run"]

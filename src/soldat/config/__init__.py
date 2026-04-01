@@ -1,4 +1,5 @@
 """Modul zur Konfiguration."""
+
 from soldat.config.server import host_binding, port
 from soldat.config.tls import tls_certfile, tls_keyfile
 

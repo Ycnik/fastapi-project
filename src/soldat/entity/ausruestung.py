@@ -6,7 +6,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from soldat.entity.base import Base
 from soldat.entity.waffe import Waffe
 
-class Ausrüstung(Base):
+
+class Ausruestung(Base):
     """Entity-Klasse für die Ausrüstung."""
 
     __tablename__ = "ausrüstung"
@@ -23,7 +24,7 @@ class Ausrüstung(Base):
     )
     """Die generierte ID gemäß der zugehörigen IDENTITY-Spalte."""
 
-    soldat: Mapped[int] = mapped_column(ForeignKey("soldat.id"))
+    soldat_id: Mapped[int] = mapped_column(ForeignKey("soldat.id"))
     """ID des zugehörigen Soldaten als Fremdschlüssel in der DB-Tabelle."""
 
     soldat: Mapped[Soldat] = relationship(  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable]
@@ -34,4 +35,8 @@ class Ausrüstung(Base):
     # __repr__ fuer Entwickler/innen, __str__ fuer User
     def __repr__(self) -> str:
         """Ausgabe einer Ausrüstung als String ohne die Soldatenndaten."""
-        return f"Ausrüstung(id={self.id}, waffe={self.waffe}, seriennummer={self.seriennummer})"
+        return (
+            f"Ausrüstung(id={self.id}, "
+            + f"waffe={self.waffe}, "
+            + f" seriennummer={self.seriennummer})"
+        )

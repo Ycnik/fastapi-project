@@ -1,6 +1,7 @@
 """SoldatGetRouter."""
+
 from dataclasses import asdict
-from typing import Annotated, Final, Any
+from typing import Annotated, Any, Final
 
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.responses import JSONResponse
@@ -17,9 +18,7 @@ __all__ = ["soldat_router"]
 soldat_router: Final = APIRouter(tags=["Lesen"])
 
 
-@soldat_router.get(
-    "/{soldat_id}"
-)
+@soldat_router.get("/{soldat_id}")
 def get_by_id(
     soldat_id: int,
     request: Request,
