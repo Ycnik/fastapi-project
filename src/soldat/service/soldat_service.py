@@ -16,7 +16,7 @@ class SoldatService:
 
     def __init__(self, repo: SoldatRepository) -> None:
         """Konstruktor mit abhängigem SoldatenRepository."""
-        self.repo = SoldatRepository
+        self.repo: SoldatRepository = repo
 
     def find_by_id(self, soldat_id: int) -> SoldatDTO:
         """Suche mit der Soldaten-ID.
