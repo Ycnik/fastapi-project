@@ -33,6 +33,9 @@ class Soldat(Base):
     geschlecht: Mapped[Geschlecht]
     """Das  Geschlecht."""
 
+    username: Mapped[str | None]
+    """Der Benutzername für Login."""
+
     # titan: Mapped[Titan | None]
     # """Angabe, des ggf. Titan eines Soldaten"""
 
@@ -107,4 +110,5 @@ class Soldat(Base):
             + f"geschlecht={self.geschlecht}, ausruestung={self.ausruestung}, "
             + f"verletzungen={self.verletzungen}, version={self.version}, "
             + f"erzeugt={self.erzeugt}, aktualisiert={self.aktualisiert}) "
+            + f"username={self.username},"
         )

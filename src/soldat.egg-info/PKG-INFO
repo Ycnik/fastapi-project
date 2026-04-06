@@ -10,5 +10,11 @@ Requires-Dist: fastapi>=0.135.1
 Requires-Dist: uvicorn>=0.41.0
 Requires-Dist: SQLAlchemy>=2.0.48
 Requires-Dist: loguru>=0.7.3
+Requires-Dist: psycopg[binary,pool]>=3.3.3
+Requires-Dist: psycopg-binary>=3.3.3
+Requires-Dist: psycopg-pool>=3.3.0
+Requires-Dist: starlette>=0.52.1
+Requires-Dist: pydantic_core>=2.41.5
+Requires-Dist: openpyxl>=3.1.5
 
 # fastapi-project

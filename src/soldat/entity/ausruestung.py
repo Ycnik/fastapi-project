@@ -8,9 +8,9 @@ from soldat.entity.waffe import Waffe
 
 
 class Ausruestung(Base):
-    """Entity-Klasse für die Ausrüstung."""
+    """Entity-Klasse für die Ausruestung."""
 
-    __tablename__ = "ausrüstung"
+    __tablename__ = "ausruestung"
 
     waffe: Mapped[Waffe]
     """Die Waffe."""
