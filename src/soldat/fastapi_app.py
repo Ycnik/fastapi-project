@@ -31,7 +31,7 @@ TEXT_PLAIN: Final = "text/plain"
 # https://fastapi.tiangolo.com/advanced/events
 # pylint: disable=redefined-outer-name
 @asynccontextmanager
-async def lifespan() -> AsyncGenerator[None]:  # noqa: RUF029
+async def lifespan(app: FastAPI) -> AsyncGenerator[None]:  # noqa: ARG001, RUF029
     """DB und Keycloak neu laden, falls im dev-Modus, sowie Banner in der Konsole."""
     if dev_db_populate:
         logger.warning("Datenbank wird neu geladen")
@@ -42,8 +42,7 @@ async def lifespan() -> AsyncGenerator[None]:  # noqa: RUF029
     engine.dispose()
 
 
-app: Final = FastAPI()
-
+app: Final = FastAPI(lifespan=lifespan)
 app.add_middleware(GZipMiddleware, minimum_size=500)  # ty:ignore[invalid-argument-type]
 
 
