@@ -1,0 +1,3 @@
+id;version;vorname;nachname;geburtsdatum;geschlecht;rang;username;erzeugt;aktualisiert
+1;0;Admin;admin@acme.com;2025-01-01;MAENNLICH;SOLDAT;admin;2025-01-01 00:00:00;2025-01-01 00:00:00
+20;0;Rainer;Rainer@acme.de;2025-01-01;MAENNLICH;SOLDAT;alice;2025-01-02 00:00:00;2025-01-02 00:00:00
