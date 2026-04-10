@@ -160,3 +160,54 @@ class SoldatRepository:
         )
         count: Final = session.execute(statement).scalar()
         return count if count is not None else 0
+
+    def create(self, soldat: Soldat, session: Session) -> Soldat:
+        """Speichere einen neuen Soldaten ab.
+
+        :param soldat: Die Daten des neuen Soldaten ohne ID
+        :param session: Session für SQLAlchemy
+        :return: Der neu angelegte Soldat mit generierter ID
+        :rtype: Soldat
+        """
+        logger.debug(
+            "soldat={}, soldat.ausruestung={}, soldat.verletzungen={}",
+            soldat,
+            soldat.ausruestung,
+            soldat.verletzungen,
+        )
+        session.add(instance=soldat)
+        session.flush(objects=[soldat])
+        logger.debug("soldat_id={}", soldat.id)
+        return soldat
+
+    def update(self, soldat: Soldat, session: Session) -> Soldat | None:
+        """Aktualisiere einen Soldaten.
+
+        :param soldat: Die neuen Soldatendaten
+        :param session: Session für SQLAlchemy
+        :return: Der aktualisierte Soldat oder None, falls kein Soldat mit der ID
+        existiert
+        :rtype: Soldat | None
+        """
+        logger.debug("{}", soldat)
+
+        if (
+            soldat_db := self.find_by_id(soldat_id=soldat.id, session=session)
+        ) is None:
+            return None
+
+        logger.debug("{}", soldat_db)
+        return soldat_db
+
+    def delete_by_id(self, soldat_id: int, session: Session) -> None:
+        """Lösche die Daten zu einem Soldaten.
+
+        :param soldat_id: Die ID des zu löschenden Soldaten
+        :param session: Session für SQLAlchemy
+        """
+        logger.debug("soldat_id={}", soldat_id)
+
+        if (soldat := self.find_by_id(soldat_id=soldat_id, session=session)) is None:
+            return
+        session.delete(soldat)
+        logger.debug("ok")

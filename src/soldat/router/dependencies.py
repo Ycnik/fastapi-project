@@ -6,6 +6,7 @@ from fastapi import Depends
 
 from soldat.repository.soldat_repository import SoldatRepository
 from soldat.service.soldat_service import SoldatService
+from soldat.service.soldat_write_service import SoldatWriteService
 
 
 def get_repository() -> SoldatRepository:
@@ -22,3 +23,10 @@ def get_service(
 ) -> SoldatService:
     """Factory-Funktion für SoldatService."""
     return SoldatService(repo=repo)
+
+
+def get_write_service(
+    repo: Annotated[SoldatRepository, Depends(get_repository)],
+) -> SoldatWriteService:
+    """Factory-Funktion für SoldatWriteService."""
+    return SoldatWriteService(repo=repo)
