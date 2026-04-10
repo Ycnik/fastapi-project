@@ -27,3 +27,14 @@ class NotFoundError(Exception):
 
 class ForbiddenError(Exception):
     """Exception, falls es der Zugriff nicht erlaubt ist."""
+
+    class VersionOutdatedError(Exception):
+        """Exception, falls die Versionsnummer beim Aktualisieren veraltet ist."""
+
+    def __init__(self, version: int) -> None:
+        """Initialisierung von VersionOutdatedError mit veralteter Versionsnummer.
+
+        :param version: Veraltete Versionsnummer
+        """
+        super().__init__(f"Veraltete Version: {version}")
+        self.version = version
