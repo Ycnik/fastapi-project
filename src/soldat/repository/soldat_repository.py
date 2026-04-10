@@ -179,3 +179,22 @@ class SoldatRepository:
         session.flush(objects=[soldat])
         logger.debug("soldat_id={}", soldat.id)
         return soldat
+
+    def update(self, soldat: Soldat, session: Session) -> Soldat | None:
+        """Aktualisiere einen Soldaten.
+
+        :param soldat: Die neuen Soldatendaten
+        :param session: Session für SQLAlchemy
+        :return: Der aktualisierte Soldat oder None, falls kein Soldat mit der ID
+        existiert
+        :rtype: Soldat | None
+        """
+        logger.debug("{}", soldat)
+
+        if (
+            soldat_db := self.find_by_id(soldat_id=soldat.id, session=session)
+        ) is None:
+            return None
+
+        logger.debug("{}", soldat_db)
+        return soldat_db
