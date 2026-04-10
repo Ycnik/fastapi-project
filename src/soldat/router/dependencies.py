@@ -28,5 +28,5 @@ def get_service(
 def get_write_service(
     repo: Annotated[SoldatRepository, Depends(get_repository)],
 ) -> SoldatWriteService:
-    """Factory-Funktion für PatientWriteService."""
+    """Factory-Funktion für SoldatWriteService."""
     return SoldatWriteService(repo=repo)
