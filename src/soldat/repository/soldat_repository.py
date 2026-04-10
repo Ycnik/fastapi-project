@@ -198,3 +198,16 @@ class SoldatRepository:
 
         logger.debug("{}", soldat_db)
         return soldat_db
+
+    def delete_by_id(self, soldat_id: int, session: Session) -> None:
+        """Lösche die Daten zu einem Soldaten.
+
+        :param soldat_id: Die ID des zu löschenden Soldaten
+        :param session: Session für SQLAlchemy
+        """
+        logger.debug("soldat_id={}", soldat_id)
+
+        if (soldat := self.find_by_id(soldat_id=soldat_id, session=session)) is None:
+            return
+        session.delete(soldat)
+        logger.debug("ok")
