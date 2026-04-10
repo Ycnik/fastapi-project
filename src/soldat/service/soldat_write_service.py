@@ -5,6 +5,10 @@ from loguru import logger
 
 from soldat.entity import Soldat
 from soldat.repository import Session, SoldatRepository
+from soldat.service.exceptions import (
+    NotFoundError,
+    VersionOutdatedError,
+)
 from soldat.service.soldat_dto import SoldatDTO
 
 __all__ = ["SoldatWriteService"]
@@ -39,3 +43,38 @@ class SoldatWriteService:
 
         logger.debug("soldat_dto={}", soldat_dto)
         return soldat_dto
+
+    def update(self, soldat: Soldat, soldat_id: int, version: int) -> SoldatDTO:
+        """Daten eines Soldaten ändern.
+
+        :param soldat: Die neuen Daten
+        :param soldat_id: ID des zu aktualisierenden Soldaten
+        :param version: Version für optimistische Synchronisation
+        :return: Der aktualisierte Soldat
+        :rtype: SoldatDTO
+        :raises NotFoundError: Falls der zu aktualisierende Soldat nicht existiert
+        :raises VersionOutdatedError: Falls die Versionsnummer nicht aktuell ist
+        """
+        logger.debug("soldat_id={}, version={}, {}", soldat_id, version, soldat)
+
+        with Session() as session:
+            if (
+                soldat_db := self.repo.find_by_id(
+                    soldat_id=soldat_id, session=session
+                )
+            ) is None:
+                raise NotFoundError(soldat_id)
+            if soldat_db.version > version:
+                raise VersionOutdatedError(version)
+
+            soldat_db.set(soldat)
+            if (
+                soldat_updated := self.repo.update(soldat=soldat_db, session=session)
+            ) is None:
+                raise NotFoundError(soldat_id)
+            soldat_dto: Final = SoldatDTO(soldat_updated)
+            logger.debug("{}", soldat_dto)
+
+            session.commit()
+            soldat_dto.version += 1
+            return soldat_dto
