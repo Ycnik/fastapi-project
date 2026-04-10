@@ -78,3 +78,13 @@ class SoldatWriteService:
             session.commit()
             soldat_dto.version += 1
             return soldat_dto
+
+    def delete_by_id(self, soldat_id: int) -> None:
+        """Einen Soldaten anhand seiner ID löschen.
+
+        :param soldat_id: ID des zu löschenden Soldaten
+        """
+        logger.debug("soldat_id={}", soldat_id)
+        with Session() as session:
+            self.repo.delete_by_id(soldat_id=soldat_id, session=session)
+            session.commit()
