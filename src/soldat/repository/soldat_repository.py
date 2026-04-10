@@ -160,3 +160,22 @@ class SoldatRepository:
         )
         count: Final = session.execute(statement).scalar()
         return count if count is not None else 0
+
+    def create(self, soldat: Soldat, session: Session) -> Soldat:
+        """Speichere einen neuen Soldaten ab.
+
+        :param soldat: Die Daten des neuen Soldaten ohne ID
+        :param session: Session für SQLAlchemy
+        :return: Der neu angelegte Soldat mit generierter ID
+        :rtype: Soldat
+        """
+        logger.debug(
+            "soldat={}, soldat.ausruestung={}, soldat.verletzungen={}",
+            soldat,
+            soldat.ausruestung,
+            soldat.verletzungen,
+        )
+        session.add(instance=soldat)
+        session.flush(objects=[soldat])
+        logger.debug("soldat_id={}", soldat.id)
+        return soldat
