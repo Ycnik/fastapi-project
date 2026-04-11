@@ -2,6 +2,7 @@
 
 from soldat.service.exceptions import (
     NotFoundError,
+    VersionOutdatedError,
 )
 from soldat.service.soldat_dto import SoldatDTO
 from soldat.service.soldat_service import SoldatService
@@ -13,4 +14,5 @@ __all__ = [
     "SoldatDTO",
     "SoldatService",
     "SoldatWriteService",
+    "VersionOutdatedError",
 ]

@@ -3,7 +3,6 @@
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Final
 
-from fastapi import FastAPI
 from fastapi.middleware.gzip import (
     GZipMiddleware,  # https://fastapi.tiangolo.com/advanced/middleware/#gzipmiddleware
 )
@@ -18,6 +17,15 @@ from soldat.router import (
     soldat_router,
     soldat_write_router,
 
+)
+
+from soldat.problem_details import create_problem_details
+
+from fastapi import FastAPI, Request, Response, status
+
+from soldat.service import (
+    NotFoundError,
+    VersionOutdatedError,
 )
 
 if TYPE_CHECKING:
@@ -60,3 +68,33 @@ app.include_router(soldat_write_router, prefix="/rest")
 def read_root() -> dict[str, str]:
     """Liefert eine einfache Hello-World-Antwort."""
     return {"message": "Hello World"}
+
+# --------------------------------------------------------------------------------------
+# E x c e p t i o n   H a n d l e r
+# --------------------------------------------------------------------------------------
+
+@app.exception_handler(NotFoundError)
+def not_found_error_handler(_request: Request, _err: NotFoundError) -> Response:
+    """Errorhandler für NotFoundError.
+
+    :param _err: NotFoundError aus der Geschäftslogik
+    :return: Response mit Statuscode 404
+    :rtype: Response
+    """
+    return create_problem_details(status_code=status.HTTP_404_NOT_FOUND)
+
+@app.exception_handler(VersionOutdatedError)
+def version_outdated_error_handler(
+    _request: Request,
+    err: VersionOutdatedError,
+) -> Response:
+    """Exception-Handling für VersionOutdatedError.
+
+    :param _err: Exception, falls die Versionsnummer zum Aktualisieren veraltet ist
+    :return: Response mit Statuscode 412
+    :rtype: Response
+    """
+    return create_problem_details(
+        status_code=status.HTTP_412_PRECONDITION_FAILED,
+        detail=str(err),
+    )
