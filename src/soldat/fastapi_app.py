@@ -16,6 +16,8 @@ from soldat.config.dev.db_populate import db_populate
 from soldat.repository.session_factory import engine
 from soldat.router import (
     soldat_router,
+    soldat_write_router,
+
 )
 
 if TYPE_CHECKING:
@@ -50,6 +52,8 @@ app.add_middleware(GZipMiddleware, minimum_size=500)  # ty:ignore[invalid-argume
 # R E S T
 # --------------------------------------------------------------------------------------
 app.include_router(soldat_router, prefix="/rest")
+app.include_router(soldat_write_router, prefix="/rest")
+
 
 
 @app.get("/")
