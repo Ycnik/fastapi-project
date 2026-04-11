@@ -28,7 +28,7 @@ class KeycloakPopulateService:
     """Service für das Neuladen von Keycloak im Modus DEV."""
 
     def __init__(self, user_service: UserService) -> None:
-        """Konstruktor mit abhängigem PatientRepository."""
+        """Konstruktor mit abhängigem SoldatRepository."""
         self.user_service: UserService = user_service
 
     def populate(self) -> None:
@@ -64,12 +64,13 @@ class KeycloakPopulateService:
                     kopfzeile = False
                     continue
 
-                username = row[11]
+                vorname = row[2]
+                nachname = row[3]
+                username = row[7]
                 if username == "admin":
                     continue
 
-                email = row[3]
-                nachname = row[2]
+                email = f"{username}@soldat.local"
                 user = User(
                     username=username,
                     email=email,
