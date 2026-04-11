@@ -8,8 +8,10 @@ from fastapi.middleware.gzip import (
 )
 from loguru import logger
 
+from soldat.config.dev.db_populate_router import router as db_populate_router
 from soldat.config import (
     dev_db_populate,
+    dev_keycloak_populate,
 )
 from soldat.config.dev.db_populate import db_populate
 from soldat.repository.session_factory import engine
@@ -18,7 +20,11 @@ from soldat.router import (
     soldat_write_router,
 
 )
-
+from soldat.config.dev.keycloak_populate_router import (
+    router as keycloak_populate_router,
+)
+from soldat.config.dev.keycloak_populate import keycloak_populate
+from soldat.security import router as auth_router
 from soldat.problem_details import create_problem_details
 
 from fastapi import FastAPI, Request, Response, status
@@ -46,6 +52,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:  # noqa: ARG001, RUF02
     if dev_db_populate:
         logger.warning("Datenbank wird neu geladen")
         db_populate()
+    if dev_keycloak_populate:
+        keycloak_populate()
     yield
     logger.info("Der Server wird heruntergefahren")
     logger.info("Connection-Pool fuer die DB wird getrennt.")
@@ -61,8 +69,12 @@ app.add_middleware(GZipMiddleware, minimum_size=500)  # ty:ignore[invalid-argume
 # --------------------------------------------------------------------------------------
 app.include_router(soldat_router, prefix="/rest")
 app.include_router(soldat_write_router, prefix="/rest")
+app.include_router(auth_router, prefix="/auth")
 
-
+if dev_db_populate:
+    app.include_router(db_populate_router, prefix="/dev")
+if dev_keycloak_populate:
+    app.include_router(keycloak_populate_router, prefix="/dev")
 
 @app.get("/")
 def read_root() -> dict[str, str]:
