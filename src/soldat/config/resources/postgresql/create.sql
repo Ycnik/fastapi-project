@@ -1,5 +1,33 @@
 SET default_tablespace = soldatspace;
 
+DROP TYPE IF EXISTS geschlecht CASCADE;
+DROP TYPE IF EXISTS rang CASCADE;
+DROP TYPE IF EXISTS schweregrad CASCADE;
+DROP TYPE IF EXISTS waffe CASCADE;
+
+CREATE TYPE geschlecht AS ENUM ('M', 'W');
+
+CREATE TYPE rang AS ENUM (
+    'REKRUT',
+    'SOLDAT',
+    'ELITE-SOLDAT',
+    'CAPTAIN',
+    'KOMMANDANT'
+);
+
+CREATE TYPE schweregrad AS ENUM (
+    'LEICHT',
+    'MITTEL',
+    'SCHWER',
+    'KRITISCH'
+);
+
+CREATE TYPE waffe AS ENUM (
+    'ODM_GEAR',
+    'Schrotflinte',
+    'Klingen'
+);
+
 CREATE TABLE IF NOT EXISTS soldat (
     id            INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY,
     version       INTEGER NOT NULL DEFAULT 0,
