@@ -24,39 +24,19 @@ class SoldatService:
         """Konstruktor mit abhängigem SoldatenRepository."""
         self.repo: SoldatRepository = repo
 
-    def find_by_id(self, soldat_id: int, user: User) -> SoldatDTO:
+    def find_by_id(self, soldat_id: int) -> SoldatDTO:
         """Suche mit der Soldaten-ID.
 
-        :param soldat_id: ID für die Suche
-        :param user: User aus dem Token
+        :param soldat_id: ID fuer die Suche
         :return: Der gefundene Soldat
-        :rtype: SoldatenDTO
+        :rtype: SoldatDTO
         :raises NotFoundError: Falls kein Soldat gefunden
-        :raises ForbiddenError: Falls die Soldatendaten nicht gelesen werden dürfen
         """
-        logger.debug("soldat_id={}, user={}", soldat_id, user)
+        logger.debug("soldat_id={}", soldat_id)
 
         with Session() as session:
-            user_is_admin: Final = Role.ADMIN in user.roles
-
-            if (
-                soldat := self.repo.find_by_id(soldat_id=soldat_id, session=session)
-            ) is None:
-                if user_is_admin:
-                    message: Final = f"Kein Soldat mit der ID {soldat_id}"
-                    logger.debug("NotFoundError: {}", message)
+            if (soldat := self.repo.find_by_id(soldat_id=soldat_id, session=session)) is None:
                 raise NotFoundError(soldat_id=soldat_id)
-                logger.debug("nicht admin")
-                raise ForbiddenError
-
-                if soldat.username != user.username and not user_is_admin:
-                    logger.debug(
-                        "soldat.username={}, user.username={}, user.roles={}",
-                        soldat.username,
-                        user.username,
-                        user.roles,
-                    )
-                raise ForbiddenError
 
             soldat_dto: Final = SoldatDTO(soldat)
             session.commit()

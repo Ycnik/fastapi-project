@@ -12,4 +12,4 @@ class Waffe(StrEnum):
 
     Schrotflinte = "Schrotflinte"
 
-    Klinge = "Klingen"
+    Klinge = "Klinge"

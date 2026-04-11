@@ -9,6 +9,7 @@ from loguru import logger
 
 from soldat.router.constants import ETAG, IF_NONE_MATCH, IF_NONE_MATCH_MIN_LEN
 from soldat.router.dependencies import get_service
+from fastapi.encoders import jsonable_encoder
 from soldat.service import SoldatDTO, SoldatService
 
 __all__ = ["soldat_router"]
@@ -63,4 +64,4 @@ def get_by_id(
 def _soldat_to_dict(soldat: SoldatDTO) -> dict[str, Any]:
     soldat_dict: Final = asdict(obj=soldat)
     soldat_dict.pop("version")
-    return soldat_dict
+    return jsonable_encoder(soldat_dict)

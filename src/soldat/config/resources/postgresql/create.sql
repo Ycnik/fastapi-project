@@ -5,7 +5,7 @@ DROP TYPE IF EXISTS rang CASCADE;
 DROP TYPE IF EXISTS schweregrad CASCADE;
 DROP TYPE IF EXISTS waffe CASCADE;
 
-CREATE TYPE geschlecht AS ENUM ('M', 'W');
+CREATE TYPE geschlecht AS ENUM ('MAENNLICH', 'WEIBLICH');
 
 CREATE TYPE rang AS ENUM (
     'REKRUT',
@@ -25,7 +25,7 @@ CREATE TYPE schweregrad AS ENUM (
 CREATE TYPE waffe AS ENUM (
     'ODM_GEAR',
     'Schrotflinte',
-    'Klingen'
+    'Klinge'
 );
 
 CREATE TABLE IF NOT EXISTS soldat (
@@ -47,12 +47,12 @@ CREATE INDEX IF NOT EXISTS soldat_nachname_idx ON soldat(nachname);
 CREATE TABLE IF NOT EXISTS ausruestung (
     id          INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY,
     waffe         waffe NOT NULL,
-    serienummer   TEXT NOT NULL,
+    seriennummer   TEXT NOT NULL,
     soldat_id  INTEGER NOT NULL REFERENCES soldat ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS ausruestung_soldat_id_idx ON ausruestung(soldat_id);
-CREATE INDEX IF NOT EXISTS ausruestung_serienummer_idx ON ausruestung(serienummer);
+CREATE INDEX IF NOT EXISTS ausruestung_seriennummer_idx ON ausruestung(seriennummer);
 
 CREATE TABLE IF NOT EXISTS verletzung (
     id          INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY,

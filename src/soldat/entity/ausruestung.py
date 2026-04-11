@@ -28,7 +28,7 @@ class Ausruestung(Base):
     """ID des zugehörigen Soldaten als Fremdschlüssel in der DB-Tabelle."""
 
     soldat: Mapped[Soldat] = relationship(  # noqa: F821 # ty: ignore[unresolved-reference] # pyright: ignore[reportUndefinedVariable]
-        back_populates="ausrüstung",
+        back_populates="ausruestung",
     )
     """Das zugehörige transiente Soldaten-Objekt."""
 

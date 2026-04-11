@@ -1,3 +1,3 @@
 id;version;vorname;nachname;geburtsdatum;geschlecht;rang;username;erzeugt;aktualisiert
-1;0;Eren;Jäger;2025-01-01;M;SOLDAT;erenj;2025-01-01 00:00:00;2025-01-01 00:00:00
-20;0;Rainer;Braun;2025-01-01;M;SOLDAT;rainerb;2025-01-02 00:00:00;2025-01-02 00:00:00
+1;0;Eren;Jäger;2025-01-01;MAENNLICH;SOLDAT;erenj;2025-01-01 00:00:00;2025-01-01 00:00:00
+20;0;Rainer;Braun;2025-01-01;MAENNLICH;SOLDAT;rainerb;2025-01-02 00:00:00;2025-01-02 00:00:00
