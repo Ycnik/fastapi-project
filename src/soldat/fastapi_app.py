@@ -3,32 +3,30 @@
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Final
 
+from fastapi import FastAPI, Request, Response, status
 from fastapi.middleware.gzip import (
     GZipMiddleware,  # https://fastapi.tiangolo.com/advanced/middleware/#gzipmiddleware
 )
 from loguru import logger
 
-from soldat.config.dev.db_populate_router import router as db_populate_router
 from soldat.config import (
     dev_db_populate,
     dev_keycloak_populate,
 )
 from soldat.config.dev.db_populate import db_populate
+from soldat.config.dev.db_populate_router import router as db_populate_router
+from soldat.config.dev.keycloak_populate import keycloak_populate
+from soldat.config.dev.keycloak_populate_router import (
+    router as keycloak_populate_router,
+)
+from soldat.graphql import graphql_router
+from soldat.problem_details import create_problem_details
 from soldat.repository.session_factory import engine
 from soldat.router import (
     soldat_router,
     soldat_write_router,
-
 )
-from soldat.config.dev.keycloak_populate_router import (
-    router as keycloak_populate_router,
-)
-from soldat.config.dev.keycloak_populate import keycloak_populate
 from soldat.security import router as auth_router
-from soldat.problem_details import create_problem_details
-
-from fastapi import FastAPI, Request, Response, status
-
 from soldat.service import (
     NotFoundError,
     VersionOutdatedError,
@@ -76,14 +74,16 @@ if dev_db_populate:
 if dev_keycloak_populate:
     app.include_router(keycloak_populate_router, prefix="/dev")
 
-@app.get("/")
-def read_root() -> dict[str, str]:
-    """Liefert eine einfache Hello-World-Antwort."""
-    return {"message": "Hello World"}
+
+# --------------------------------------------------------------------------------------
+# G r a p h Q L
+# --------------------------------------------------------------------------------------
+app.include_router(graphql_router, prefix="/graphql")
 
 # --------------------------------------------------------------------------------------
 # E x c e p t i o n   H a n d l e r
 # --------------------------------------------------------------------------------------
+
 
 @app.exception_handler(NotFoundError)
 def not_found_error_handler(_request: Request, _err: NotFoundError) -> Response:
@@ -94,6 +94,7 @@ def not_found_error_handler(_request: Request, _err: NotFoundError) -> Response:
     :rtype: Response
     """
     return create_problem_details(status_code=status.HTTP_404_NOT_FOUND)
+
 
 @app.exception_handler(VersionOutdatedError)
 def version_outdated_error_handler(
