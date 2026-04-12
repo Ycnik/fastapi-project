@@ -26,8 +26,10 @@ from soldat.router import (
     soldat_router,
     soldat_write_router,
 )
+from soldat.security import AuthorizationError, LoginError
 from soldat.security import router as auth_router
 from soldat.service import (
+    ForbiddenError,
     NotFoundError,
     VersionOutdatedError,
 )
@@ -111,3 +113,43 @@ def version_outdated_error_handler(
         status_code=status.HTTP_412_PRECONDITION_FAILED,
         detail=str(err),
     )
+
+
+@app.exception_handler(AuthorizationError)
+def authorization_error_handler(
+    _request: Request,
+    _err: AuthorizationError,
+) -> Response:
+    """Errorhandler für AuthorizationError.
+
+    :param _err: AuthorizationError vom Extrahieren der Benutzerkennung aus dem
+        Authorization-Header
+    :return: Response mit Statuscode 401
+    :rtype: Response
+    """
+    return create_problem_details(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+@app.exception_handler(LoginError)
+# pylint: disable-next=invalid-name
+def login_error_handler(_request: Request, err: LoginError) -> Response:
+    """Exception-Handler, wenn der Benutzername oder das Passwort fehlerhaft ist.
+
+    :param _exc: LoginError
+    :return: Response-Objekt mit Statuscode 401
+    :rtype: Response
+    """
+    return create_problem_details(
+        status_code=status.HTTP_401_UNAUTHORIZED, detail=str(err)
+    )
+
+
+@app.exception_handler(ForbiddenError)
+def forbidden_error_handler(_request: Request, _err: ForbiddenError) -> Response:
+    """Errorhandler für ForbiddenError.
+
+    :param _err: ForbiddenError vom Überprüfen der erforderlichen Rollen
+    :return: Response mit Statuscode 403
+    :rtype: Response
+    """
+    return create_problem_details(status_code=status.HTTP_403_FORBIDDEN)

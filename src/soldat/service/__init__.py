@@ -1,6 +1,8 @@
 """Modul für den Geschäftslogik."""
 
 from soldat.service.exceptions import (
+    AuthorizationError,
+    ForbiddenError,
     NotFoundError,
     VersionOutdatedError,
 )
@@ -10,6 +12,8 @@ from soldat.service.soldat_write_service import SoldatWriteService
 
 # https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
 __all__ = [
+    "AuthorizationError",
+    "ForbiddenError",
     "NotFoundError",
     "SoldatDTO",
     "SoldatService",
