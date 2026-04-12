@@ -1,12 +1,14 @@
 """DTO-Klasse für die Ausruestung, insbesondere ohne Decorators für SQLAlchemy."""
-
 from dataclasses import dataclass
+
+import strawberry
 
 from soldat.entity.ausruestung import Ausruestung
 from soldat.entity.waffe import Waffe
 
 
 @dataclass(eq=False, slots=True, kw_only=True)
+@strawberry.type
 class AusruestungDTO:
     """DTO-Klasse für die Ausruestung, insbesondere ohne Decorators für SQLAlchemy."""
 

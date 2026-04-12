@@ -1,12 +1,14 @@
 """DTO-Klasse für die Verletzung, insbesondere ohne Decorators für SQLAlchemy."""
-
 from dataclasses import dataclass
 from datetime import date
+
+import strawberry
 
 from soldat.entity import Schweregrad, Verletzung
 
 
 @dataclass(eq=False, slots=True, kw_only=True)
+@strawberry.type
 class VerletzungDTO:
     """DTO-Klasse für die Verletzung, insbesondere ohne Decorators für SQLAlchemy."""
 

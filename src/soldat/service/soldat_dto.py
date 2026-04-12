@@ -1,7 +1,8 @@
 """DTO-Klasse für Soldatendaten, insbesondere ohne Decorators für SQLAlchemy."""
-
 from dataclasses import dataclass
 from datetime import date
+
+import strawberry
 
 from soldat.entity import Rang, Soldat
 from soldat.entity.geschlecht import Geschlecht
@@ -12,6 +13,7 @@ __all__ = ["SoldatDTO"]
 
 
 @dataclass(eq=False, slots=True, kw_only=True)
+@strawberry.type
 class SoldatDTO:
     """DTO-Klasse für aus gelesene oder gespeicherte Soldatendaten: ohne Decorators."""
 
