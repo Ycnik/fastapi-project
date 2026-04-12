@@ -75,7 +75,7 @@ class KeycloakPopulateService:
                     username=username,
                     email=email,
                     nachname=nachname,
-                    vorname=nachname,
+                    vorname=vorname,
                     roles=[Role.SOLDAT],
                     password="p",  # noqa: S106 # NOSONAR
                 )
