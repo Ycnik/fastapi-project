@@ -146,7 +146,7 @@ class SoldatRepository:
                 .filter(Soldat.nachname.ilike(f"%{teil}%"))
             )
         )
-        soldaten: Final = session.scalars(statement).all()
+        soldaten: Final = session.scalars(statement).unique().all()
         anzahl: Final = self._count_rows_nachname(teil, session)
         soldat_slice: Final = Slice(content=tuple(soldaten), total_elements=anzahl)
         logger.debug("{}", soldat_slice)

@@ -78,6 +78,7 @@ class Query:
         try:
             soldat_dto: Final = _service.find_by_id(
                 soldat_id=int(soldat_id),
+                user=user
             )
         except NotFoundError:
             return None

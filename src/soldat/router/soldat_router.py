@@ -4,12 +4,13 @@ from dataclasses import asdict
 from typing import Annotated, Any, Final
 
 from fastapi import APIRouter, Depends, Request, Response, status
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from loguru import logger
 
 from soldat.router.constants import ETAG, IF_NONE_MATCH, IF_NONE_MATCH_MIN_LEN
 from soldat.router.dependencies import get_service
-from fastapi.encoders import jsonable_encoder
+from soldat.security import Role, RolesRequired, User
 from soldat.service import SoldatDTO, SoldatService
 
 __all__ = ["soldat_router"]
@@ -19,7 +20,10 @@ __all__ = ["soldat_router"]
 soldat_router: Final = APIRouter(tags=["Lesen"])
 
 
-@soldat_router.get("/{soldat_id}")
+@soldat_router.get(
+    "/{soldat_id}",
+    dependencies=[Depends(RolesRequired([Role.ADMIN, Role.SOLDAT]))],
+)
 def get_by_id(
     soldat_id: int,
     request: Request,
@@ -36,7 +40,10 @@ def get_by_id(
     :raises NotFoundError: Falls kein Soldat gefunden wurde
     :raises ForbiddenError: Falls die Soldatendaten nicht gelesen werden dürfen
     """
-    soldat: Final = service.find_by_id(soldat_id=soldat_id)
+    user: Final[User] = request.state.current_user
+    logger.debug("soldat_id={}, user={}", soldat_id, user)
+
+    soldat: Final = service.find_by_id(soldat_id=soldat_id, user=user)
     logger.debug("{}", soldat)
 
     if_none_match: Final = request.headers.get(IF_NONE_MATCH)

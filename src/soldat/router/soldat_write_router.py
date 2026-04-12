@@ -10,6 +10,7 @@ from soldat.router.constants import IF_MATCH, IF_MATCH_MIN_LEN
 from soldat.router.dependencies import get_write_service
 from soldat.router.soldat_model import SoldatModel
 from soldat.router.soldat_update_model import SoldatUpdateModel
+from soldat.security import Role, RolesRequired
 from soldat.service import SoldatWriteService
 
 __all__ = ["soldat_write_router"]
@@ -19,7 +20,8 @@ soldat_write_router: Final = APIRouter(tags=["Schreiben"])
 
 
 @soldat_write_router.delete(
-    "/{soldat_id}"
+    "/{soldat_id}",
+    dependencies=[Depends(RolesRequired([Role.ADMIN, Role.SOLDAT]))],
 )
 def delete_by_id(
     soldat_id: int,
@@ -63,7 +65,8 @@ def post(
 
 
 @soldat_write_router.put(
-    "/{soldat_id}"
+    "/{soldat_id}",
+    dependencies=[Depends(RolesRequired([Role.ADMIN, Role.SOLDAT]))],
 )
 def put(
     soldat_id: int,
