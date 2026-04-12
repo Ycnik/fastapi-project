@@ -1,0 +1,84 @@
+info:
+  name: Suche nachname, email, ... vom Patienten mit ID 20
+  type: graphql
+  seq: 1
+
+graphql:
+  method: POST
+  url: "{{graphqlUrl}}"
+  headers:
+    - name: ""
+      value: ""
+      disabled: true
+  body:
+    query: |-
+      query ($soldatId: ID! = "1") {
+        soldat(soldatId: $soldatId) {
+          id
+          vorname
+          nachname
+          ausruestung {
+            waffe
+          }
+          verletzungen {
+            behandelt
+            verletzungsbezeichnung
+          }
+        }
+      }
+    variables: |-
+      {
+        "patientId": "1"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0eWtfemJOTE9nWUwyQ2NXZEM4MXJiMnBqcUZhU0V1SEp0N3A1RGlwaWprIn0.eyJleHAiOjE3NzYwMTczNjUsImlhdCI6MTc3NjAxNTU2NSwianRpIjoib25ydHJvOmJmYjM2ZmRiLTE0ZTYtZTM4OS04NGRiLTJlY2IzMTU4ZDhmYSIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0Ojg4NDMvcmVhbG1zL3B5dGhvbiIsImF1ZCI6WyJyZWFsbS1tYW5hZ2VtZW50IiwiYWNjb3VudCJdLCJzdWIiOiIxNDZkZmE2NC01NThlLTQ3NTItODJhZC00MTczOTQ0ZmFmY2UiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJweXRob24tY2xpZW50Iiwic2lkIjoiUi0tN3puXzltM3FWUEpsSk5ISWE3cmVHIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6W10sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLXB5dGhvbiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZWFsbS1tYW5hZ2VtZW50Ijp7InJvbGVzIjpbInZpZXctaWRlbnRpdHktcHJvdmlkZXJzIiwidmlldy1yZWFsbSIsIm1hbmFnZS1pZGVudGl0eS1wcm92aWRlcnMiLCJpbXBlcnNvbmF0aW9uIiwicmVhbG0tYWRtaW4iLCJjcmVhdGUtY2xpZW50IiwibWFuYWdlLXVzZXJzIiwicXVlcnktcmVhbG1zIiwidmlldy1hdXRob3JpemF0aW9uIiwicXVlcnktY2xpZW50cyIsInF1ZXJ5LXVzZXJzIiwibWFuYWdlLWV2ZW50cyIsIm1hbmFnZS1yZWFsbSIsInZpZXctZXZlbnRzIiwidmlldy11c2VycyIsInZpZXctY2xpZW50cyIsIm1hbmFnZS1hdXRob3JpemF0aW9uIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiXX0sInB5dGhvbi1jbGllbnQiOnsicm9sZXMiOlsiYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJQeXRob24gQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImdpdmVuX25hbWUiOiJQeXRob24iLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBhY21lLmNvbSJ9.cEXeC8ctFIc4WOomaCj4DAmxEHO_rivvDnI6yRQm_W4jcU0uF-OyRPjZ8VdDdSCnpUdvWArFZwGyFsVrdKuR0sFPfxzBP-tWVhjeSQwJ4Vd_j7dahecUZMOgRdk_qpufmlqRIBJzf0nhEgFCffxmHq6R9lAReo_R9eefv6vbbqIWSoIMBbJITQB5W3z29oOVb8gQzP1ZsVVizB7SoeZvd1ZqmGMM2iuFKT2n30gMuxIotG9o32Bn949sPKu-iezDo-hZzkkdFGBlEPIdorwxGPMKWs8O67HguXFir1lasOH3FlZVIZOVN6mFncAogNQz_bxFr2osusHLjJc1QZ5ChA
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: eq
+      value: application/json
+    - expression: res.body.data.patient
+      operator: isJson
+    - expression: res.body.data.patient.version
+      operator: gte
+      value: "0"
+    - expression: res.body.data.patient.nachname
+      operator: isString
+    - expression: res.body.data.patient.nachname
+      operator: isNotEmpty
+    - expression: res.body.data.patient.email
+      operator: isString
+    - expression: res.body.data.patient.email
+      operator: isNotEmpty
+    - expression: res.body.data.patient.kategorie
+      operator: gt
+      value: "0"
+    - expression: res.body.data.patient.hasNewsletter
+      operator: isBoolean
+    - expression: res.body.data.patient.geburtsdatum
+      operator: isString
+    - expression: res.body.data.patient.homepage
+      operator: isString
+    - expression: res.body.data.patient.geschlecht
+      operator: isString
+    - expression: res.body.data.patient.familienstand
+      operator: isString
+    - expression: res.body.data.patient.adresse
+      operator: isJson
+    - expression: res.body.data.patient.fachaerzte
+      operator: isArray
+    - expression: res.body.data.patient.username
+      operator: isString
+    - expression: res.body.data.patient.username
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
