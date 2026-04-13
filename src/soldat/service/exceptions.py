@@ -4,6 +4,7 @@ from collections.abc import Mapping
 
 __all__ = [
     "NotFoundError",
+    "SeriennummerExistsError",
     "VersionOutdatedError",
 ]
 
@@ -59,3 +60,12 @@ class LoginError(Exception):
 
 class AuthorizationError(Exception):
     """Exception, falls der "Authorization"-String fehlt oder fehlerhaft ist."""
+
+
+class SeriennummerExistsError(Exception):
+    """Exception, falls die Seriennummer bereits existiert."""
+
+    def __init__(self, seriennummer: str) -> None:
+        """Initialisierung mit einer bereits vergebenen Seriennummer."""
+        super().__init__(f"Seriennummer existiert bereits: {seriennummer}")
+        self.seriennummer = seriennummer

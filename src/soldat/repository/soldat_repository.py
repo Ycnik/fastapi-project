@@ -7,7 +7,7 @@ from loguru import logger
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
 
-from soldat.entity import Soldat
+from soldat.entity import Ausruestung, Soldat
 from soldat.repository.pageable import Pageable
 from soldat.repository.slice import Slice
 
@@ -160,6 +160,47 @@ class SoldatRepository:
         )
         count: Final = session.execute(statement).scalar()
         return count if count is not None else 0
+
+    def exists_seriennummer(self, seriennummer: str, session: Session) -> bool:
+        """Prüfen, ob eine Seriennummer bereits existiert.
+
+        :param seriennummer: Zu prüfende Seriennummer
+        :param session: Session für SQLAlchemy
+        :return: True, falls die Seriennummer bereits existiert, sonst False
+        :rtype: bool
+        """
+        logger.debug("seriennummer={}", seriennummer)
+        statement: Final = (
+            select(func.count())
+            .select_from(Ausruestung)
+            .where(Ausruestung.seriennummer == seriennummer)
+        )
+        anzahl: Final = session.scalar(statement)
+        logger.debug("anzahl={}", anzahl)
+        return anzahl is not None and anzahl > 0
+
+    def exists_seriennummer_other_id(
+        self,
+        seriennummer: str,
+        soldat_id: int,
+        session: Session,
+    ) -> bool:
+        """Prüfen, ob eine Seriennummer bei einem anderen Soldaten existiert.
+
+        :param seriennummer: Zu prüfende Seriennummer
+        :param soldat_id: Eigene Soldat-ID
+        :param session: Session für SQLAlchemy
+        :return: True, falls die Seriennummer bei einem anderen Soldaten existiert
+        :rtype: bool
+        """
+        logger.debug("seriennummer={}", seriennummer)
+        statement: Final = (
+            select(Ausruestung.soldat_id)
+            .where(Ausruestung.seriennummer == seriennummer)
+        )
+        soldat_id_db: Final = session.scalar(statement)
+        logger.debug("soldat_id_db={}", soldat_id_db)
+        return soldat_id_db is not None and soldat_id_db != soldat_id
 
     def create(self, soldat: Soldat, session: Session) -> Soldat:
         """Speichere einen neuen Soldaten ab.
