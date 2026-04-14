@@ -61,7 +61,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:  # noqa: ARG001, RUF02
 
 
 app: Final = FastAPI(lifespan=lifespan)
-app.add_middleware(GZipMiddleware, minimum_size=500)  # ty:ignore[invalid-argument-type]
+app.add_middleware(GZipMiddleware, minimum_size=500)
 
 
 # --------------------------------------------------------------------------------------
