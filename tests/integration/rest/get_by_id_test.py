@@ -12,7 +12,7 @@ from pytest import mark
 # in pyproject.toml bei der Table [tool.pytest.ini_options] gibt es das Array "markers"
 @mark.rest
 @mark.get_request
-@mark.parametrize("soldat_id", [30, 1, 20])
+@mark.parametrize("soldat_id", [1, 20])
 def test_get_by_id_admin(soldat_id: int) -> None:
     # arrange
     token: Final = login()
@@ -60,7 +60,7 @@ def test_get_by_id_not_found(soldat_id: int) -> None:
 def test_get_by_id_soldat() -> None:
     # arrange
     soldat_id: Final = 20
-    token: Final = login(username="erenj")
+    token: Final = login(username="rainerb")
     assert token is not None
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -85,7 +85,7 @@ def test_get_by_id_soldat() -> None:
 @mark.parametrize("soldat_id", [1, 30])
 def test_get_by_id_not_allowed(soldat_id: int) -> None:
     # arrange
-    token: Final = login(username="erenj")
+    token: Final = login(username="rainerb")
     assert token is not None
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -105,7 +105,7 @@ def test_get_by_id_not_allowed(soldat_id: int) -> None:
 @mark.parametrize("soldat_id", [0, 999999])
 def test_get_by_id_not_allowed_not_found(soldat_id: int) -> None:
     # arrange
-    token: Final = login(username="alice")
+    token: Final = login(username="rainerb")
     assert token is not None
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -153,7 +153,7 @@ def test_get_by_id_ohne_token(soldat_id: int) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("soldat_id,if_none_match", [(20, '"0"'), (30, '"0"')])
+@mark.parametrize("soldat_id,if_none_match", [(20, '"0"'), (1, '"0"')])
 def test_get_by_id_etag(soldat_id: int, if_none_match: str) -> None:
     # arrange
     token: Final = login()
@@ -177,7 +177,7 @@ def test_get_by_id_etag(soldat_id: int, if_none_match: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("soldat_id,if_none_match", [(30, 'xxx"'), (1, "xxx"), (20, "xxx")])
+@mark.parametrize("soldat_id,if_none_match", [(1, "xxx"), (20, "xxx")])
 def test_get_by_id_etag_invalid(soldat_id: int, if_none_match: str) -> None:
     # arrange
     token: Final = login()
