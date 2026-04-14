@@ -71,6 +71,27 @@ def get_by_id(
     )
 
 
+@soldat_router.get(
+    "/nachnamen/{teil}",
+    dependencies=[Depends(RolesRequired(Role.ADMIN))],
+)
+def get_nachnamen(
+    teil: str,
+    service: Annotated[SoldatService, Depends(get_service)],
+) -> JSONResponse:
+    """Suche Nachnamen zum gegebenen Teilstring.
+
+    :param teil: Teilstring der gefundenen Nachnamen
+    :param service: Injizierter Service für Geschäftslogik
+    :return: Response mit Statuscode 200 und gefundenen Nachnamen im Body
+    :rtype: Response
+    :raises NotFoundError: Falls keine Nachnamen gefunden wurden
+    """
+    logger.debug("teil={}", teil)
+    nachnamen: Final = service.find_nachnamen(teil=teil)
+    return JSONResponse(content=nachnamen)
+
+
 def _soldat_to_dict(soldat: SoldatDTO) -> dict[str, Any]:
     soldat_dict: Final = asdict(obj=soldat)
     soldat_dict.pop("version")
