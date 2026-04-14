@@ -1,4 +1,7 @@
-*.pyc
 .env
 *.txt
 *.toml
+
+# Python bytecode
+__pycache__/
+*.pyc
