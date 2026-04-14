@@ -31,6 +31,7 @@ from soldat.security import router as auth_router
 from soldat.service import (
     ForbiddenError,
     NotFoundError,
+    SeriennummerExistsError,
     VersionOutdatedError,
 )
 
@@ -153,3 +154,20 @@ def forbidden_error_handler(_request: Request, _err: ForbiddenError) -> Response
     :rtype: Response
     """
     return create_problem_details(status_code=status.HTTP_403_FORBIDDEN)
+
+
+@app.exception_handler(SeriennummerExistsError)
+def seriennummer_exists_error_handler(
+    _request: Request,
+    err: SeriennummerExistsError,
+) -> Response:
+    """Exception-Handling für SeriennummerExistsError.
+
+    :param err: Exception, falls die Seriennummer bereits existiert
+    :return: Response mit Statuscode 422
+    :rtype: Response
+    """
+    return create_problem_details(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        detail=str(err),
+    )

@@ -8,8 +8,11 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from loguru import logger
 
+from soldat.repository import Pageable
+from soldat.repository.slice import Slice
 from soldat.router.constants import ETAG, IF_NONE_MATCH, IF_NONE_MATCH_MIN_LEN
 from soldat.router.dependencies import get_service
+from soldat.router.page import Page
 from soldat.security import Role, RolesRequired, User
 from soldat.service import SoldatDTO, SoldatService
 
@@ -72,3 +75,56 @@ def _soldat_to_dict(soldat: SoldatDTO) -> dict[str, Any]:
     soldat_dict: Final = asdict(obj=soldat)
     soldat_dict.pop("version")
     return jsonable_encoder(soldat_dict)
+
+
+def _soldat_slice_to_page(
+    soldat_slice: Slice[SoldatDTO],
+    pageable: Pageable,
+) -> dict[str, Any]:
+    soldat_dict: Final = tuple(
+        _soldat_to_dict(soldat) for soldat in soldat_slice.content
+    )
+    page: Final = Page.create(
+        content=soldat_dict,
+        pageable=pageable,
+        total_elements=soldat_slice.total_elements,
+    )
+    return asdict(obj=page)
+
+
+@soldat_router.get(
+    "",
+    dependencies=[Depends(RolesRequired(Role.ADMIN))],
+)
+def get(
+    request: Request,
+    service: Annotated[SoldatService, Depends(get_service)],
+) -> JSONResponse:
+    """Suche mit Query-Parameter.
+
+    :param request: Injiziertes Request-Objekt von FastAPI bzw. Starlette
+        mit Query-Parameter
+    :param service: Injizierter Service für Geschäftslogik
+    :return: Response mit einer Seite mit Soldaten-Daten
+    :rtype: Response
+    :raises NotFoundError: Falls keine Soldaten gefunden wurden
+    """
+    query_params: Final = request.query_params
+    log_str: Final = "{}"
+    logger.debug(log_str, query_params)
+
+    page: Final = query_params.get("page")
+    size: Final = query_params.get("size")
+    pageable: Final = Pageable.create(number=page, size=size)
+
+    suchparameter = dict(query_params)
+    if "page" in query_params:
+        del suchparameter["page"]
+    if "size" in query_params:
+        del suchparameter["size"]
+
+    soldat_slice: Final = service.find(suchparameter=suchparameter, pageable=pageable)
+
+    result: Final = _soldat_slice_to_page(soldat_slice, pageable)
+    logger.debug(log_str, result)
+    return JSONResponse(content=result)

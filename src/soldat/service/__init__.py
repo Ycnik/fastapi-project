@@ -4,6 +4,7 @@ from soldat.service.exceptions import (
     AuthorizationError,
     ForbiddenError,
     NotFoundError,
+    SeriennummerExistsError,
     VersionOutdatedError,
 )
 from soldat.service.soldat_dto import SoldatDTO
@@ -15,6 +16,7 @@ __all__ = [
     "AuthorizationError",
     "ForbiddenError",
     "NotFoundError",
+    "SeriennummerExistsError",
     "SoldatDTO",
     "SoldatService",
     "SoldatWriteService",
