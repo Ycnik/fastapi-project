@@ -23,6 +23,7 @@ from soldat.graphql import graphql_router
 from soldat.problem_details import create_problem_details
 from soldat.repository.session_factory import engine
 from soldat.router import (
+    health_router,
     soldat_router,
     soldat_write_router,
 )
@@ -70,6 +71,7 @@ app.add_middleware(GZipMiddleware, minimum_size=500)
 # --------------------------------------------------------------------------------------
 app.include_router(soldat_router, prefix="/rest")
 app.include_router(soldat_write_router, prefix="/rest")
+app.include_router(health_router, prefix="/health")
 app.include_router(auth_router, prefix="/auth")
 
 if dev_db_populate:
