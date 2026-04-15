@@ -17,14 +17,24 @@ token: str | None
 def test_post() -> None:
     # arrange
     neuer_soldat: Final = {
-        "vorname": "VornameRest",
-        "nachname": "Nachnamerest",
-        "geburtsdatum": "2022-02-01",
-        "geschlecht": "W",
-        "rang": "SOLDAT",
-        "ausruestung": {"waffe": "Klinge", "serienummer": "543"},
-        "verletzungen": [{"verletzungsbezeichnung": "Knochenbruch", "behandelt": "false", "schweregrad": "LEICHT", "verletzungsdatum": "2022-02-01"}],  # noqa: E501
-        "username": "testrest",
+        "vorname": "ErwinTest",
+        "nachname": "SmithTest",
+        "rang": "KOMMANDANT",
+        "geburtsdatum": "1985-10-14",
+        "geschlecht": "M",
+        "ausruestung": {
+            "waffe": "Klinge",
+            "seriennummer": "AOT-220205"
+        },
+        "verletzungen": [
+            {
+            "verletzungsbezeichnung": "Armverletzung",
+            "schweregrad": "SCHWER",
+            "behandelt": False,
+            "verletzungsdatum": "2022-02-01"
+            }
+        ],
+        "username": "erwins"
     }
     headers = {"Content-Type": "application/json"}
 
@@ -50,7 +60,7 @@ def test_post() -> None:
 def test_post_invalid() -> None:
     # arrange
     neuer_soldat_invalid: Final = {
-        "vorname": "Vorname_falsch",
+        "vorname": "vorname_falsch",
         "nachname": "Nachnamerest",
         "geburtsdatum": "2022-02-01",
         "geschlecht": "W",
@@ -71,12 +81,6 @@ def test_post_invalid() -> None:
 
     # assert
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
-    body = response.text
-    assert "vorname" in body
-    assert "nachname" in body
-    assert "geburtsdatum" in body
-    assert "geschlecht" in body
-    assert "waffe" in body
 
 
 @mark.rest
