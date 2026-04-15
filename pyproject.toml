@@ -38,6 +38,8 @@ package = true
 
 [dependency-groups]
 dev = [
+    "gevent>=v25.9.1",
+    "locust>=2.43.3",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
     "pytest-env>=1.6.0",
