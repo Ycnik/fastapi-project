@@ -13,22 +13,15 @@ graphql:
   body:
     query: |-
       {
-        patienten(suchparameter: {}) {
+        soldaten(suchparameter: {}) {
           id
           version
           nachname
-          email
-          kategorie
-          hasNewsletter
           geburtsdatum
-          homepage
-          geschlecht
-          familienstand
-          adresse {
-            plz
-            ort
+          rang
+          ausruestung {
+            waffe
           }
-          fachaerzte
           username
         }
       }

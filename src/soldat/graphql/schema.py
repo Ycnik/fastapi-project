@@ -165,7 +165,7 @@ class Mutation:
 
         :param username: Benutzername
         :param password: Passwort
-        :rtype: LoginResult
+        :Returntype: LoginResult
         """
         logger.debug("username={}, password={}", username, password)
         token_mapping = _token_service.token(username=username, password=password)

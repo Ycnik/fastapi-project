@@ -1,5 +1,5 @@
 info:
-  name: Neuer Patient
+  name: Neuer Soldat
   type: graphql
   seq: 1
 
@@ -14,23 +14,21 @@ graphql:
     query: |-
       mutation {
         create(
-          patientInput: {
+          soldatInput: {
+            vorname: "Vornamegraphql"
             nachname: "Nachnamegraphql"
-            email: "testgraphql@test.graphql"
-            kategorie: 9
-            hasNewsletter: true
             geburtsdatum: "2022-02-02"
-            homepage: "https://test.graphql"
             geschlecht: WEIBLICH
-            familienstand: LEDIG
-            fachaerzte: [CHIRURGIE]
-            adresse: {
-              plz: "99999"
-              ort: "Testort"
+            rang: SOLDAT
+            ausruestung: {
+              waffe: Klinge
+              seriennummer: "AOT-Be123"
             }
-            rechnungen: [{
-              betrag: "999.99"
-              waehrung: "EUR"
+            verletzungen: [{
+              verletzungsbezeichnung: "Knochenbruch"
+              verletzungsdatum: "2024-03-11"
+              schweregrad: MITTEL
+              behandelt: true
             }]
             username: "testgraphql"
           }

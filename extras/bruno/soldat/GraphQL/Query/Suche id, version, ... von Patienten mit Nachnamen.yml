@@ -12,22 +12,12 @@ graphql:
       disabled: true
   body:
     query: |-
-      query ($nachname: String = "Alice") {
-        patienten(suchparameter: {nachname: $nachname}) {
+      query ($nachname: String = "Braun") {
+        soldaten(suchparameter: {nachname: $nachname}) {
           id
           version
-          email
-          kategorie
-          hasNewsletter
           geburtsdatum
-          homepage
           geschlecht
-          familienstand
-          adresse {
-            plz
-            ort
-          }
-          fachaerzte
           username
         }
       }

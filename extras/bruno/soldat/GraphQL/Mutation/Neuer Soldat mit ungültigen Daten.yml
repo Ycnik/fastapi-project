@@ -1,5 +1,5 @@
 info:
-  name: Neuer Patient mit ungültigen Daten
+  name: Neuer Soldat mit ungültigen Daten
   type: graphql
   seq: 2
 
@@ -14,24 +14,10 @@ graphql:
     query: |-
       mutation {
         create(
-          patientInput: {
+          soldatInput: {
             nachname: "falscher_nachname"
-            email: "falsche_email@"
-            kategorie: 1
-            hasNewsletter: true
             geburtsdatum: "2022-01-31"
-            homepage: "https://?!"
             geschlecht: WEIBLICH
-            familienstand: LEDIG
-            fachaerzte: [CHIRURGIE]
-            adresse: {
-              plz: "1234"
-              ort: "Testort"
-            }
-            rechnungen: [{
-              betrag: "1"
-              waehrung: "EU"
-            }]
             username: "testgraphql"
           }
         ) {
