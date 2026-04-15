@@ -1,3 +1,8 @@
 id;waffe;seriennummer;soldat_id
-1;Klinge;543;1
-20;Schrotflinte;22222;20
+1;Klinge;AOT-543ABC;1
+20;Schrotflinte;AOT-22222XYZ;20
+30;Klinge;AOT-98765DEF;30
+40;ODM_GEAR;AOT-67890GHI;40
+50;Schrotflinte;AOT-11223JKL;50
+60;ODM_GEAR;AOT-33445MNO;60
+70;Klinge;AOT-55678PQR;70
