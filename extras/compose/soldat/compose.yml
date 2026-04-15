@@ -1,0 +1,48 @@
+include:
+  - path: ../backend/compose.yml
+
+services:
+  soldat:
+    image: AttackOnTitan/soldat:2026.4.1-hardened
+    depends_on:
+      db:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+
+    stop_signal: SIGINT
+    ports:
+      - published: 8000
+        target: 8000
+    volumes:
+      - type: bind
+        source: app.toml
+        target: /opt/app/.venv/lib/python3.14/site-packages/soldat/config/resources/app.toml
+        read_only: true
+      - type: bind
+        source: ../../../log
+        target: /opt/app/log
+      - type: bind
+        source: soldat.csv
+        target: /csv/soldat.csv
+        read_only: true
+      - type: bind
+        source: ../../../src/soldat/config/resources/tls/key.pem
+        target: /opt/app/.venv/lib/python3.14/site-packages/soldat/config/resources/tls/key.pem
+        read_only: true
+    env_file: .env
+    networks: [acme-network]
+    hostname: soldat
+    cap_drop: [ALL]
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "1.0"
+          memory: 1G
+
+networks:
+  acme-network:
+    name: acme-network
