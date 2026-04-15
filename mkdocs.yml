@@ -26,16 +26,6 @@ nav:
   - Komponentendiagramm: komponentendiagramm.md
   - Schichtenarchitektur: schichtenarchitektur.md
   - ER-Diagramm: er-diagramm.md
-  - API-Dokumentation:
-      # https://chrieke.medium.com/documenting-a-python-package-with-code-reference-via-mkdocs-material-b4a45197f95b
-      - __init__: modules/__init__.md
-      - REST-Schnittstelle: modules/rest.md
-      - GraphQL-Schnittstelle: modules/graphql.md
-      - Geschäftslogik: modules/service.md
-      - Datenbankzugriffsschicht: modules/repository.md
-      - Geschäftsobjekte: modules/entity.md
-      - Authentifizierung und Autorisierung: modules/security.md
-
 theme:
   name: material
   favicon: img/favicon.ico
