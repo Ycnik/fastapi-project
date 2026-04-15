@@ -17,8 +17,8 @@ token: str | None
 def test_post() -> None:
     # arrange
     neuer_soldat: Final = {
-        "vorname": "ErwinTest",
-        "nachname": "SmithTest",
+        "vorname": "Erwintest",
+        "nachname": "Smithtest",
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",

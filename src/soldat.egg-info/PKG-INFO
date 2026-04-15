@@ -6,15 +6,18 @@ Author-email: Tareq Daoud-Ghadieh <data1014@h-ka.de>, Yanik Bachmann <baya1011@h
 Maintainer-email: Tareq Daoud-Ghadieh <data1014@h-ka.de>, Yanik Bachmann <baya1011@h-ka.de>
 Requires-Python: >=3.14.3
 Description-Content-Type: text/markdown
-Requires-Dist: fastapi>=0.135.1
-Requires-Dist: uvicorn>=0.41.0
-Requires-Dist: SQLAlchemy>=2.0.48
+Requires-Dist: fastapi>=0.135.3
+Requires-Dist: uvicorn>=0.44.0
+Requires-Dist: SQLAlchemy>=2.0.49
 Requires-Dist: loguru>=0.7.3
 Requires-Dist: psycopg[binary,pool]>=3.3.3
 Requires-Dist: psycopg-binary>=3.3.3
 Requires-Dist: psycopg-pool>=3.3.0
-Requires-Dist: starlette>=0.52.1
-Requires-Dist: pydantic_core>=2.41.5
+Requires-Dist: python-keycloak>=7.1.1
+Requires-Dist: jwcrypto>=1.5.6
+Requires-Dist: pydantic_core>=2.46.0
 Requires-Dist: openpyxl>=3.1.5
+Requires-Dist: starlette>=0.52.1
+Requires-Dist: strawberry-graphql>=0.311.3
 
 # fastapi-project
