@@ -1,4 +1,5 @@
 """Geschäftslogik zum Schreiben von Soldatendaten."""
+
 from typing import Final
 
 from loguru import logger
@@ -37,11 +38,10 @@ class SoldatWriteService:
         )
 
         with Session() as session:
-
             seriennummer: Final = soldat.ausruestung.seriennummer
             if self.repo.exists_seriennummer(
-            seriennummer=seriennummer,
-            session=session):
+                seriennummer=seriennummer, session=session
+            ):
                 raise SeriennummerExistsError(seriennummer)
 
             soldat_db: Final = self.repo.create(soldat=soldat, session=session)
@@ -66,9 +66,7 @@ class SoldatWriteService:
 
         with Session() as session:
             if (
-                soldat_db := self.repo.find_by_id(
-                    soldat_id=soldat_id, session=session
-                )
+                soldat_db := self.repo.find_by_id(soldat_id=soldat_id, session=session)
             ) is None:
                 raise NotFoundError(soldat_id)
             if soldat_db.version > version:

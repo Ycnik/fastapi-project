@@ -22,19 +22,16 @@ def test_post() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "ausruestung": {
-            "waffe": "Klinge",
-            "seriennummer": "AOT-220205"
-        },
+        "ausruestung": {"waffe": "Klinge", "seriennummer": "AOT-220205"},
         "verletzungen": [
             {
-            "verletzungsbezeichnung": "Armverletzung",
-            "schweregrad": "SCHWER",
-            "behandelt": False,
-            "verletzungsdatum": "2022-02-01"
+                "verletzungsbezeichnung": "Armverletzung",
+                "schweregrad": "SCHWER",
+                "behandelt": False,
+                "verletzungsdatum": "2022-02-01",
             }
         ],
-        "username": "erwins"
+        "username": "erwins",
     }
     headers = {"Content-Type": "application/json"}
 
@@ -66,7 +63,14 @@ def test_post_invalid() -> None:
         "geschlecht": "W",
         "rang": "SOLDAT",
         "ausruestung": {"waffe": "Klinge", "serienummer": "543"},
-        "verletzungen": [{"verletzungsbezeichnung": "Knochenbruch", "behandelt": "false", "schweregrad": "LEICHT", "verletzungsdatum": "2022-02-01"}],  # noqa: E501
+        "verletzungen": [
+            {
+                "verletzungsbezeichnung": "Knochenbruch",
+                "behandelt": "false",
+                "schweregrad": "LEICHT",
+                "verletzungsdatum": "2022-02-01",
+            }
+        ],  # noqa: E501
         "username": "testrestinvalid",
     }
     headers = {"Content-Type": "application/json"}

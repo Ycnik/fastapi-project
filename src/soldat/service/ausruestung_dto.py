@@ -1,4 +1,5 @@
 """DTO-Klasse für die Ausruestung, insbesondere ohne Decorators für SQLAlchemy."""
+
 from dataclasses import dataclass
 
 import strawberry

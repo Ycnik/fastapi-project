@@ -40,16 +40,16 @@ class SoldatUpdateModel(BaseModel):
     """Das Geschlecht."""
 
     model_config = ConfigDict(
-            json_schema_extra={
-        "example": {
-            "vorname": "Eren",
-            "nachname": "Jaeger",
-            "rang": "REKRUT",
-            "geburtsdatum": "2001-03-30",
-            "geschlecht": "M",
-        },
-    }
-)
+        json_schema_extra={
+            "example": {
+                "vorname": "Eren",
+                "nachname": "Jaeger",
+                "rang": "REKRUT",
+                "geburtsdatum": "2001-03-30",
+                "geschlecht": "M",
+            },
+        }
+    )
 
     def to_dict(self) -> dict[str, Any]:
         """Konvertierung der primitiven Attribute in ein Dictionary.

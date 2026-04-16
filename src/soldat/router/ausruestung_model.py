@@ -14,10 +14,13 @@ class AusruestungModel(BaseModel):
 
     waffe: Waffe
     """Die Waffe."""
-    seriennummer: Annotated[str, StringConstraints(
-        max_length=64,
-        pattern=r"^AOT-[A-Za-z0-9]+$",
-    )]
+    seriennummer: Annotated[
+        str,
+        StringConstraints(
+            max_length=64,
+            pattern=r"^AOT-[A-Za-z0-9]+$",
+        ),
+    ]
     """Die Seriennummer."""
 
     model_config = ConfigDict(

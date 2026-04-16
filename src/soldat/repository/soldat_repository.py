@@ -194,9 +194,8 @@ class SoldatRepository:
         :rtype: bool
         """
         logger.debug("seriennummer={}", seriennummer)
-        statement: Final = (
-            select(Ausruestung.soldat_id)
-            .where(Ausruestung.seriennummer == seriennummer)
+        statement: Final = select(Ausruestung.soldat_id).where(
+            Ausruestung.seriennummer == seriennummer
         )
         soldat_id_db: Final = session.scalar(statement)
         logger.debug("soldat_id_db={}", soldat_id_db)
@@ -232,9 +231,7 @@ class SoldatRepository:
         """
         logger.debug("{}", soldat)
 
-        if (
-            soldat_db := self.find_by_id(soldat_id=soldat.id, session=session)
-        ) is None:
+        if (soldat_db := self.find_by_id(soldat_id=soldat.id, session=session)) is None:
             return None
 
         logger.debug("{}", soldat_db)
