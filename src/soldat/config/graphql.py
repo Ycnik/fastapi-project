@@ -1,4 +1,3 @@
-
 """Konfiguration für GraphQL."""
 
 from typing import Final

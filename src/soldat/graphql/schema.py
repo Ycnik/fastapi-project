@@ -49,9 +49,7 @@ __all__ = ["graphql_router"]
 _repo: Final = SoldatRepository()
 _service: SoldatService = SoldatService(repo=_repo)
 _user_service: UserService = UserService()
-_write_service: SoldatWriteService = SoldatWriteService(
-    repo=_repo
-)
+_write_service: SoldatWriteService = SoldatWriteService(repo=_repo)
 _token_service: Final = TokenService()
 
 
@@ -76,19 +74,14 @@ class Query:
             return None
 
         try:
-            soldat_dto: Final = _service.find_by_id(
-                soldat_id=int(soldat_id),
-                user=user
-            )
+            soldat_dto: Final = _service.find_by_id(soldat_id=int(soldat_id), user=user)
         except NotFoundError:
             return None
         logger.debug("{}", soldat_dto)
         return soldat_dto
 
     @strawberry.field
-    def soldaten(
-        self, suchparameter: Suchparameter, info: Info
-    ) -> Sequence[SoldatDTO]:
+    def soldaten(self, suchparameter: Suchparameter, info: Info) -> Sequence[SoldatDTO]:
         """Soldaten anhand von Suchparameter suchen.
 
         :param suchparameter: nachname, email usw.

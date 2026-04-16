@@ -1,4 +1,5 @@
 """DTO-Klasse für die Verletzung, insbesondere ohne Decorators für SQLAlchemy."""
+
 from dataclasses import dataclass
 from datetime import date
 

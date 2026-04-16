@@ -8,9 +8,9 @@ from fastapi import Request
 from jwcrypto.common import JWException
 from keycloak import KeycloakAuthenticationError, KeycloakOpenID
 from loguru import logger
-from soldat.security.exceptions import AuthorizationError, LoginError
 
 from soldat.config import keycloak_config
+from soldat.security.exceptions import AuthorizationError, LoginError
 from soldat.security.role import Role
 from soldat.security.user import User
 

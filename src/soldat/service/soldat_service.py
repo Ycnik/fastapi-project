@@ -39,7 +39,8 @@ class SoldatService:
         with Session() as session:
             user_is_admin: Final = Role.ADMIN in user.roles
 
-            if (soldat := self.repo.find_by_id(soldat_id=soldat_id, session=session)
+            if (
+                soldat := self.repo.find_by_id(soldat_id=soldat_id, session=session)
             ) is None:
                 if user_is_admin:
                     message: Final = f"Kein Soldat mit der ID {soldat_id}"

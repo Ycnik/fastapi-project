@@ -24,7 +24,7 @@ def test_put() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
@@ -57,7 +57,7 @@ def test_put_invalid() -> None:
         "rang": "keinrang",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
@@ -91,7 +91,7 @@ def test_put_nicht_vorhanden() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
@@ -123,7 +123,7 @@ def test_put_ohne_versionsnr() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
@@ -155,7 +155,7 @@ def test_put_alte_versionsnr() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
@@ -188,7 +188,7 @@ def test_put_ungueltige_versionsnr() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
@@ -222,7 +222,7 @@ def test_put_versionsnr_ohne_quotes() -> None:
         "rang": "KOMMANDANT",
         "geburtsdatum": "1985-10-14",
         "geschlecht": "M",
-        "username": "erwins"
+        "username": "erwins",
     }
     token: Final = login()
     assert token is not None
