@@ -22,7 +22,7 @@ graphql:
             rang: SOLDAT
             ausruestung: {
               waffe: Klinge
-              seriennummer: "AOT-Be123"
+              seriennummer: "AOT-Be1234"
             }
             verletzungen: [{
               verletzungsbezeichnung: "Knochenbruch"
